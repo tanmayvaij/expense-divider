@@ -43,7 +43,7 @@ export default function ExpenseEntry() {
 
             <View style={styles.keyboardInputView}>
                 <TextInput
-                    onChangeText={(item) => setFormState({ ...formState, amount: item })}
+                    onChangeText={(item) => setFormState({ ...formState, amount: item.replace(/\D/g, '') })}
                     value={formState.amount}
                     style={styles.keyboardInput}
                     placeholder="Enter amount"
