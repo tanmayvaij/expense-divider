@@ -10,6 +10,10 @@ export default function BuddiesEntry() {
     const dispatch = useDispatch()
     const [formState, setFormState] = useState({ id: Date.now(), name: "", amount: "" })
 
+    function isNumeric(string) {
+        return !isNaN(parseFloat(string)) && isFinite(string);
+    }
+
     const addBuddiesToList = () => {
         if ( formState.amount == "" || formState.name == "" ) return 
         dispatch(addBuddy(formState))
@@ -33,7 +37,7 @@ export default function BuddiesEntry() {
             <View style={styles.keyboardInputView}>
                 <TextInput
                     onChangeText={(item) => { 
-                        setFormState({ ...formState, amount: item.replace(/\D/g, '') }) 
+                        if (isNumeric(item) || item == "") setFormState({ ...formState, amount: item }) 
                     }}
                     value={formState.amount}
                     style={styles.keyboardInput}

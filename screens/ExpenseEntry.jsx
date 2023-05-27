@@ -12,6 +12,10 @@ export default function ExpenseEntry() {
     const [formState, setFormState] = useState({ id: Date.now(), title: "", amount: "", type: "" })
     const [value, setValue] = useState(null)
 
+    function isNumeric(string) {
+        return !isNaN(parseFloat(string)) && isFinite(string);
+    }
+
     const data = [
         { label: "Travel", value: "Travel" },
         { label: "Food", value: "Food" },
@@ -43,7 +47,9 @@ export default function ExpenseEntry() {
 
             <View style={styles.keyboardInputView}>
                 <TextInput
-                    onChangeText={(item) => setFormState({ ...formState, amount: item.replace(/\D/g, '') })}
+                    onChangeText={(item) => { 
+                        if (isNumeric(item) || item == "") setFormState({ ...formState, amount: item })
+                    }}
                     value={formState.amount}
                     style={styles.keyboardInput}
                     placeholder="Enter amount"
